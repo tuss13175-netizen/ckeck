@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="th">
+ <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260819-03-92738fb","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/7949ff62d67710d5.telemetry_sdk.js" integrity="sha512-KIvXA82Di44YY/RH9/63A9MuTuavYgDFG8PfErJn7Wli4K0LAOk+coo/aPXk3+ZNL96nHh9VYD4PE+fLes+laQ=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOMSAI Stock Check</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="/_sdk/0e8d3a91e1c6f495.data_sdk.js" integrity="sha512-c00oDoGjsMgluCLLEyVl3suwEkgjOGGplVFbsilUoBg4aMKNmsL3mwsc9r0dPn95qiSZyjBousQXgROkAW7p/w=="></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=Libre+Franklin:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--orange:#f36b21;--forest:#20342c;--ink:#4a4a4a;--sage:#eef4ef;--line:#dce6de}
+    *{box-sizing:border-box} body{font-family:"Libre Franklin",sans-serif;color:var(--ink)}
+    .som-font{font-family:"Fraunces",serif}.paper-grid{background-image:linear-gradient(rgba(45,77,61,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(45,77,61,.045) 1px,transparent 1px);background-size:28px 28px}
+    .card-shadow{box-shadow:0 14px 36px rgba(42,63,49,.10)}.view{display:none}.view.active{display:block}
+    .nav-btn.active{background:#cfd2d4!important;color:#2f3437!important;box-shadow:0 5px 15px rgba(47,52,55,.14)}
+    input:focus,select:focus,textarea:focus{outline:3px solid rgba(243,107,33,.18);border-color:var(--orange)}
+    .table-wrap{overflow-x:auto}.stock-table{min-width:820px;border-collapse:separate;border-spacing:0 8px}
+    .stock-table th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#718078;text-align:left;padding:0 10px 4px}
+    .stock-table td{background:#fff;padding:11px 10px;border-top:1px solid #e4ebe5;border-bottom:1px solid #e4ebe5}
+    .stock-table td:first-child{border-left:1px solid #e4ebe5;border-radius:13px 0 0 13px}.stock-table td:last-child{border-right:1px solid #e4ebe5;border-radius:0 13px 13px 0}
+    .sales-day-list{max-height:24rem;overflow-y:auto;scrollbar-gutter:stable}.sales-day-button[aria-current="date"]{border-color:var(--orange);background:#fff7f1;box-shadow:0 0 0 2px rgba(243,107,33,.12)}
+    input[type="number"]{-moz-appearance:textfield}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+    .reveal{animation:rise .45s ease both}@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+  <script src="/_sdk/eba18683f23e5798.resizing_sdk.js" type="text/javascript" integrity="sha512-E0UWUllhwPXaNJtjyTKXWKrIE+FruPfFpO4mRmMDP2LI+U9bOizy5npCq6xx/JyWcvSK7D3TFf2wFR2Mha9kbA=="></script>
+ </head>
+ <body data-template-id="__page-root" class="w-full min-h-screen paper-grid">
+  <header class="w-full px-4 pt-5 sm:px-8 sm:pt-8">
+   <div data-template-id="header-panel" class="canva-header mx-auto max-w-7xl rounded-[2rem] px-6 py-5 sm:px-8">
+    <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+     <div class="flex items-center gap-4">
+      <div class="h-14 w-14 overflow-hidden rounded-2xl bg-white shadow-sm"><img data-template-id="brand-logo" class="canva-image h-full w-full object-cover" loading="lazy">
+      </div>
+      <div>
+       <p data-template-id="brand-kicker" class="canva-text text-xs font-bold uppercase tracking-[.18em]"></p>
+       <h1 data-template-id="page-title" class="canva-text som-font font-bold leading-tight"></h1>
+      </div>
+     </div>
+     <div class="flex flex-wrap items-center gap-3">
+      <div class="flex items-center gap-2 text-sm font-semibold text-white"><i data-lucide="shield-check" class="h-5 w-5"></i> <label data-template-id="role-label" class="canva-text" for="role-select"></label> <select id="role-select" class="rounded-xl border border-white/30 bg-white/15 px-3 py-2 text-sm text-white"> <option value="staff" class="text-slate-800">พนักงาน</option> <option value="admin" class="text-slate-800">แอดมิน</option> </select>
+      </div>
+     </div>
+    </div>
+    <nav aria-label="เมนูหลัก" class="mt-5 flex flex-wrap gap-2"><button data-template-id="nav-stock" class="canva-button nav-btn active rounded-xl px-4 py-2 text-sm font-bold transition" type="button" data-view="stock-view"><i data-lucide="boxes" class="mr-1 inline h-4 w-4"></i><span data-template-id="nav-stock-label" class="canva-text"></span></button> <button data-template-id="nav-movement" class="canva-button nav-btn rounded-xl px-4 py-2 text-sm font-bold transition" type="button" data-view="movement-view"><i data-lucide="arrow-left-right" class="mr-1 inline h-4 w-4"></i><span data-template-id="nav-movement-label" class="canva-text"></span></button> <button data-template-id="nav-count" class="canva-button nav-btn rounded-xl px-4 py-2 text-sm font-bold transition" type="button" data-view="count-view"><i data-lucide="clipboard-list" class="mr-1 inline h-4 w-4"></i><span data-template-id="nav-count-label" class="canva-text"></span></button> <button data-template-id="nav-history" class="canva-button nav-btn rounded-xl px-4 py-2 text-sm font-bold transition" type="button" data-view="history-view"><i data-lucide="history" class="mr-1 inline h-4 w-4"></i><span data-template-id="nav-history-label" class="canva-text"></span></button> <button data-template-id="nav-products" class="canva-button nav-btn admin-only hidden rounded-xl px-4 py-2 text-sm font-bold transition" type="button" data-view="products-view"><i data-lucide="package-plus" class="mr-1 inline h-4 w-4"></i><span data-template-id="nav-products-label" class="canva-text"></span></button> <button data-template-id="nav-approval" class="canva-button nav-btn admin-only hidden rounded-xl px-4 py-2 text-sm font-bold transition" type="button" data-view="approval-view"><i data-lucide="badge-check" class="mr-1 inline h-4 w-4"></i><span data-template-id="nav-approval-label" class="canva-text"></span></button> <button data-template-id="nav-sales" class="canva-button nav-btn rounded-xl px-4 py-2 text-sm font-bold transition" type="button" data-view="sales-view"><i data-lucide="bar-chart-3" class="mr-1 inline h-4 w-4"></i><span data-template-id="nav-sales-label" class="canva-text"></span></button>
+    </nav>
+   </div>
+  </header>
+  <main class="mx-auto w-full max-w-7xl px-4 pb-12 pt-6 sm:px-8">
+   <section id="stock-view" class="view active">
+    <p data-template-id="stock-intro" class="canva-text reveal mb-6 max-w-4xl leading-7"></p>
+    <section data-template-id="stock-panel" class="canva-panel rounded-[2rem] p-5 card-shadow sm:p-7">
+     <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+      <div>
+       <p data-template-id="stock-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+       <h2 data-template-id="stock-title" class="canva-text som-font mt-1 font-bold"></h2>
+      </div>
+      <div class="grid grid-cols-2 gap-2 sm:flex"><select id="stock-warehouse-filter" aria-label="กรองคลัง" class="rounded-xl border border-[#d5dfd5] bg-white px-3 py-2 text-sm"> <option value="">ทุกคลัง</option><option>SOKO</option><option>Office</option> </select> <select id="stock-location-filter" aria-label="กรองจุดจัดเก็บ" class="rounded-xl border border-[#d5dfd5] bg-white px-3 py-2 text-sm"> <option value="">ทุกจุดจัดเก็บ</option> </select>
+      </div>
+     </div>
+     <div id="stock-summary" class="mt-5 grid gap-3 sm:grid-cols-3"></div>
+     <div class="table-wrap mt-5">
+      <table class="stock-table w-full">
+       <thead>
+        <tr>
+         <th>ชื่อสินค้า</th>
+         <th>คลัง / จุดจัดเก็บ</th>
+         <th>สถานะ</th>
+         <th>พร้อมขาย</th>
+         <th>ชำรุด</th>
+         <th>หน่วย</th>
+        </tr>
+       </thead>
+       <tbody id="stock-table-body"></tbody>
+      </table>
+     </div>
+     <p data-template-id="stock-empty" id="stock-empty" class="canva-text hidden py-10 text-center text-sm"></p>
+    </section>
+   </section>
+   <section id="movement-view" class="view">
+    <p data-template-id="movement-intro" class="canva-text reveal mb-6 max-w-4xl leading-7"></p>
+    <div class="grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+     <section data-template-id="movement-form-panel" class="canva-panel rounded-[2rem] p-6 card-shadow">
+      <p data-template-id="movement-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+      <h2 data-template-id="movement-title" class="canva-text som-font mt-1 font-bold"></h2>
+      <form id="movement-form" class="mt-6 space-y-4">
+       <div class="grid gap-3 sm:grid-cols-2">
+        <div>
+         <label data-template-id="movement-staff-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-staff"></label><select id="movement-staff" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกผู้ทำรายการ</option><option>ทีมคลังสินค้า</option><option>ทีมออฟฟิศ</option><option>แอดมิน</option></select>
+        </div>
+        <div>
+         <label data-template-id="movement-type-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-type"></label><select id="movement-type" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกประเภทรายการ</option><option>รับสินค้าเข้า</option><option>เบิกสินค้าราคาพนักงาน</option><option>เบิกสินค้าทีมคอนเทนต์</option><option>เบิกสินค้าชำรุด</option><option>จัดส่งสินค้า</option><option>รับคืน</option><option>ย้ายคลัง</option><option>อื่นๆ</option></select>
+        </div>
+       </div>
+       <div id="custom-movement-type-fields" class="hidden">
+        <label data-template-id="custom-movement-type-label" class="canva-text mb-1 block text-[11px] font-bold" for="custom-movement-type"></label><input id="custom-movement-type" class="w-full rounded-md border border-[#d5dfd5] bg-white px-2.5 py-1.5 text-[11px]">
+       </div>
+       <div data-template-id="movement-datetime-panel" class="rounded-2xl border border-[#e1ebe2] bg-[#f3f7f2] p-4">
+        <p data-template-id="movement-datetime-title" class="canva-text text-sm font-bold"></p>
+        <div class="mt-3 grid gap-3 sm:grid-cols-2">
+         <div><label data-template-id="movement-date-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-date"></label><input id="movement-date" required type="date" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+         </div>
+         <div><label data-template-id="movement-time-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-time"></label><input id="movement-time" required type="time" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+         </div>
+        </div>
+       </div>
+       <div class="grid gap-3 sm:grid-cols-2">
+        <div>
+         <label data-template-id="movement-warehouse-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-warehouse"></label><select id="movement-warehouse" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลัง</option><option>SOKO</option><option>Office</option></select>
+        </div>
+        <div>
+         <label data-template-id="movement-location-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-location"></label><select id="movement-location" required disabled class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลังก่อน</option></select>
+        </div>
+       </div>
+       <div>
+        <label data-template-id="movement-product-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-product"></label><select id="movement-product" required disabled class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกจุดจัดเก็บก่อน</option></select>
+       </div>
+       <div id="transfer-fields" class="hidden grid gap-3 rounded-2xl border border-[#d7e4d9] bg-[#f8fbf8] p-4 sm:grid-cols-2">
+        <div>
+         <label data-template-id="dest-warehouse-label" class="canva-text mb-1.5 block text-sm font-bold" for="dest-warehouse"></label><select id="dest-warehouse" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลังปลายทาง</option><option>SOKO</option><option>Office</option></select>
+        </div>
+        <div>
+         <label data-template-id="dest-location-label" class="canva-text mb-1.5 block text-sm font-bold" for="dest-location"></label><select id="dest-location" disabled class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลังก่อน</option></select>
+        </div>
+       </div>
+       <div class="grid gap-3 sm:grid-cols-2">
+        <div>
+         <label data-template-id="movement-qty-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-qty"></label><input id="movement-qty" min="1" step="1" inputmode="numeric" pattern="[0-9]*" data-numeric="integer" required type="number" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+        </div>
+        <div>
+         <label data-template-id="movement-unit-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-unit"></label><input id="movement-unit" readonly class="w-full rounded-xl border border-[#d5dfd5] bg-[#f1f3f1] px-3 py-3 text-sm">
+        </div>
+       </div>
+       <div class="grid gap-3 sm:grid-cols-2">
+        <div><label data-template-id="movement-order-ref-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-order-ref"></label><input id="movement-order-ref" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+        </div>
+        <div><label data-template-id="movement-note-label" class="canva-text mb-1.5 block text-sm font-bold" for="movement-note"></label><textarea id="movement-note" rows="1" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"></textarea>
+        </div>
+       </div>
+       <div id="movement-preview" class="hidden rounded-2xl border border-[#d6e6d9] bg-[#f3f8f3] px-4 py-3 text-sm font-semibold text-[#365545]"></div><button data-template-id="save-movement-button" id="save-movement-button" type="submit" class="canva-button w-full rounded-2xl px-4 py-3.5 font-bold transition hover:brightness-95"></button>
+       <p id="movement-message" class="hidden rounded-xl px-3 py-2 text-sm font-semibold" aria-live="polite"></p>
+      </form>
+     </section>
+     <aside data-template-id="movement-help-panel" class="canva-panel rounded-[2rem] p-6 card-shadow">
+      <p data-template-id="movement-help-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+      <h2 data-template-id="movement-help-title" class="canva-text som-font mt-1 font-bold"></h2>
+      <div class="mt-6 space-y-4 text-sm leading-6 text-[#607067]">
+       <p data-template-id="movement-help-1" class="canva-text"></p>
+       <p data-template-id="movement-help-2" class="canva-text"></p>
+       <p data-template-id="movement-help-3" class="canva-text"></p>
+      </div>
+     </aside>
+    </div>
+   </section>
+   <section id="count-view" class="view">
+    <p data-template-id="count-intro" class="canva-text reveal mb-6 max-w-4xl leading-7"></p>
+    <section data-template-id="count-selector-panel" class="canva-panel rounded-[2rem] p-5 card-shadow sm:p-7">
+     <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+       <p data-template-id="count-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+       <h2 data-template-id="count-title" class="canva-text som-font mt-1 font-bold"></h2>
+      </div>
+     </div>
+     <form id="count-selector-form" class="mt-5 grid gap-4 md:grid-cols-4">
+      <div>
+       <label data-template-id="count-staff-label" class="canva-text mb-1.5 block text-sm font-bold" for="count-staff"></label><select id="count-staff" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกผู้ตรวจนับ</option><option>ทีมคลังสินค้า</option><option>ทีมออฟฟิศ</option><option>แอดมิน</option></select>
+      </div>
+      <div>
+       <label data-template-id="count-warehouse-label" class="canva-text mb-1.5 block text-sm font-bold" for="count-warehouse"></label><select id="count-warehouse" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลัง</option><option>SOKO</option><option>Office</option></select>
+      </div>
+      <div>
+       <label data-template-id="count-location-label" class="canva-text mb-1.5 block text-sm font-bold" for="count-location"></label><select id="count-location" required disabled class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลังก่อน</option></select>
+      </div>
+      <div class="flex items-end">
+       <button data-template-id="load-count-button" type="submit" class="canva-button w-full rounded-xl px-4 py-3 font-bold"></button>
+      </div>
+     </form>
+     <div class="mt-4 flex flex-col gap-3 rounded-2xl border border-[#dfe8df] bg-white/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+       <p class="text-sm font-bold text-[#20342c]">บันทึกสำรองไป Google Sheets แบบเรียลไทม์</p>
+       <p id="sheet-sync-status" class="mt-1 text-xs text-[#718078]" aria-live="polite">กำลังตรวจสอบการเชื่อมต่อ...</p>
+      </div><button id="sheet-settings-toggle" type="button" class="admin-only hidden rounded-xl border border-[#d5dfd5] bg-white px-3 py-2 text-sm font-bold text-[#365545]">ตั้งค่า Google Sheets</button>
+     </div>
+     <div id="sheet-settings" class="mt-4 hidden rounded-2xl border border-[#f0d8c7] bg-[#fffaf6] p-4">
+      <label class="mb-1.5 block text-sm font-bold text-[#20342c]" for="sheet-web-app-url">Google Apps Script Web App URL</label>
+      <div class="flex flex-col gap-2 sm:flex-row"><input id="sheet-web-app-url" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/.../exec" class="min-w-0 flex-1 rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"> <button id="save-sheet-url" type="button" class="rounded-xl bg-[#20342c] px-4 py-3 text-sm font-bold text-white">บันทึก URL</button> <button id="test-sheet-url" type="button" class="rounded-xl border border-[#d5dfd5] bg-white px-4 py-3 text-sm font-bold text-[#365545]">ทดสอบส่งข้อมูล</button>
+      </div>
+      <p id="sheet-settings-message" class="mt-2 text-xs text-[#718078]" aria-live="polite">ตั้งค่าเพียงครั้งเดียวในอุปกรณ์นี้ แล้วทุกครั้งที่บันทึกผลตรวจนับ ระบบจะส่งสำเนาไปยังชีททันที</p>
+      <p class="mt-3 rounded-xl bg-white px-3 py-2 text-xs leading-5 text-[#607067]">วิธีเชื่อม: เปิด Google Sheet → ส่วนขยาย → Apps Script → วางโค้ดด้านล่าง → Deploy เป็น Web app โดยเลือก Execute as: Me และ Who has access: Anyone → นำ URL ที่ลงท้ายด้วย <strong>/exec</strong> มาวางด้านบน</p>
+      <details class="mt-4 rounded-xl border border-[#eadfd6] bg-white p-3">
+       <summary class="cursor-pointer text-sm font-bold text-[#365545]">ดูโค้ดที่ต้องวางใน Google Apps Script</summary>
+       <textarea id="apps-script-code" readonly rows="13" class="mt-3 w-full rounded-xl border border-[#d5dfd5] bg-[#f7f8f7] p-3 font-mono text-xs leading-5 text-[#33443b]"></textarea><button id="copy-apps-script" type="button" class="mt-2 rounded-xl bg-[#eef4ef] px-3 py-2 text-xs font-bold text-[#365545]">คัดลอกโค้ด</button>
+      </details>
+     </div>
+     <p id="count-selector-message" class="mt-4 hidden rounded-xl px-3 py-2 text-sm font-semibold" aria-live="polite"></p>
+    </section>
+    <section id="count-table-section" class="mt-6 hidden">
+     <div data-template-id="count-table-panel" class="canva-panel rounded-[2rem] p-5 card-shadow sm:p-7">
+      <div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+       <div>
+        <h2 data-template-id="count-table-title" class="canva-text som-font font-bold"></h2>
+        <p id="count-area" class="mt-1 text-sm text-[#607067]"></p>
+       </div><span id="count-summary" class="rounded-xl bg-[#f3f7f2] px-3 py-2 text-sm font-bold text-[#365545]"></span>
+      </div>
+      <form id="count-form">
+       <div class="table-wrap mt-4">
+        <table class="stock-table w-full">
+         <thead>
+          <tr>
+           <th>ชื่อสินค้า</th>
+           <th>สถานะ</th>
+           <th>ในระบบ</th>
+           <th>นับจริง</th>
+           <th>หน่วย</th>
+           <th>ผลต่าง</th>
+           <th>หมายเหตุ</th>
+          </tr>
+         </thead>
+         <tbody id="count-table-body"></tbody>
+        </table>
+       </div>
+       <p data-template-id="count-note" class="canva-text mt-4 text-sm"></p><button data-template-id="save-count-button" id="save-count-button" type="submit" class="canva-button mt-5 rounded-2xl px-5 py-3.5 font-bold disabled:opacity-60"></button>
+       <p id="count-message" class="mt-4 hidden rounded-xl px-3 py-2 text-sm font-semibold" aria-live="polite"></p>
+      </form>
+     </div>
+    </section>
+   </section>
+   <section id="history-view" class="view">
+    <p data-template-id="history-intro" class="canva-text reveal mb-6 max-w-4xl leading-7"></p>
+    <section data-template-id="history-panel" class="canva-panel rounded-[2rem] p-5 card-shadow sm:p-7">
+     <div>
+      <p data-template-id="history-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+      <h2 data-template-id="history-title" class="canva-text som-font mt-1 font-bold"></h2>
+     </div>
+     <div class="mt-5 grid gap-3 md:grid-cols-4"><input id="history-date" type="date" aria-label="ค้นหาตามวันที่" class="rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"> <input id="history-product" aria-label="ค้นหาตามสินค้า" placeholder="ค้นหาสินค้า" class="rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"> <input id="history-staff" aria-label="ค้นหาตามผู้ทำรายการ" placeholder="ค้นหาผู้ทำรายการ" class="rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"> <select id="history-warehouse" aria-label="ค้นหาตามคลัง" class="rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">ทุกคลัง</option><option>SOKO</option><option>Office</option></select>
+     </div>
+     <div id="history-list" class="mt-6 space-y-3"></div>
+     <p data-template-id="history-empty" id="history-empty" class="canva-text hidden py-10 text-center text-sm"></p>
+    </section>
+   </section>
+   <section id="sales-view" class="view">
+    <p data-template-id="sales-intro" class="canva-text reveal mb-6 max-w-4xl leading-7"></p>
+    <div class="grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
+     <section data-template-id="sales-form-panel" class="canva-panel rounded-[2rem] p-6 card-shadow">
+      <p data-template-id="sales-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+      <h2 data-template-id="sales-title" class="canva-text som-font mt-1 font-bold"></h2>
+      <form id="sales-form" class="mt-6 space-y-4">
+       <div><label data-template-id="sales-date-label" class="canva-text mb-1.5 block text-sm font-bold" for="sales-date"></label><input id="sales-date" required type="date" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+       </div>
+       <div><label data-template-id="sales-channel-label" class="canva-text mb-1.5 block text-sm font-bold" for="sales-channel"></label><select id="sales-channel" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกช่องทาง</option><option>Dropship</option><option>Line</option><option>Facebook</option><option>อื่นๆ</option></select>
+       </div>
+       <div><label data-template-id="sales-product-label" class="canva-text mb-1.5 block text-sm font-bold" for="sales-product"></label><input id="sales-product" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+       </div>
+       <div class="grid gap-3 sm:grid-cols-2">
+        <div><label data-template-id="sales-orders-label" class="canva-text mb-1.5 block text-sm font-bold" for="sales-orders"></label><input id="sales-orders" min="0" step="1" inputmode="numeric" pattern="[0-9]*" data-numeric="integer" required type="number" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+        </div>
+        <div><label data-template-id="sales-amount-label" class="canva-text mb-1.5 block text-sm font-bold" for="sales-amount"></label><input id="sales-amount" min="0" step="0.01" inputmode="decimal" data-numeric="decimal" required type="number" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+        </div>
+       </div><button data-template-id="save-sales-button" type="submit" class="canva-button w-full rounded-2xl px-4 py-3.5 font-bold"></button>
+       <p id="sales-message" class="hidden rounded-xl px-3 py-2 text-sm font-semibold" aria-live="polite"></p>
+      </form>
+     </section>
+     <section data-template-id="sales-list-panel" class="canva-panel rounded-[2rem] p-6 card-shadow">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+       <div>
+        <p data-template-id="sales-list-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+        <h2 data-template-id="sales-list-title" class="canva-text som-font mt-1 font-bold"></h2>
+       </div>
+       <div class="flex items-center gap-2"><button id="sales-prev-month" type="button" aria-label="ดูเดือนก่อนหน้า" class="rounded-xl border border-[#d5dfd5] bg-white p-2.5 text-[#365545]"><i data-lucide="chevron-left" class="h-4 w-4"></i></button> <input id="sales-month" type="month" aria-label="เลือกเดือนสรุปยอดขาย" class="rounded-xl border border-[#d5dfd5] bg-white px-3 py-2 text-sm font-bold text-[#365545]"> <button id="sales-next-month" type="button" aria-label="ดูเดือนถัดไป" class="rounded-xl border border-[#d5dfd5] bg-white p-2.5 text-[#365545]"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
+       </div>
+      </div>
+      <div id="sales-month-summary" class="mt-4 rounded-2xl bg-[#f3f7f2] px-4 py-3 text-sm font-semibold text-[#365545]"></div>
+      <div id="sales-day-list" class="sales-day-list mt-4 space-y-2 pr-1"></div>
+      <div class="mt-5 flex flex-col gap-2 border-t border-[#e4ebe5] pt-5 sm:flex-row sm:items-center sm:justify-between">
+       <h3 id="sales-selected-day-title" class="font-bold text-[#20342c]">รายละเอียดรายวัน</h3><span id="sales-total" class="rounded-xl bg-[#e7f2e9] px-3 py-2 text-sm font-bold text-[#267049]"></span>
+      </div>
+      <div id="sales-list" class="mt-4 max-h-80 space-y-3 overflow-y-auto pr-1"></div>
+      <p data-template-id="sales-empty" id="sales-empty" class="canva-text hidden py-10 text-center text-sm"></p>
+     </section>
+    </div>
+   </section>
+   <section id="products-view" class="view">
+    <p data-template-id="products-intro" class="canva-text reveal mb-6 max-w-4xl leading-7"></p>
+    <div class="grid gap-6 lg:grid-cols-[.85fr_1.15fr]">
+     <section data-template-id="product-form-panel" class="canva-panel rounded-[2rem] p-6 card-shadow">
+      <p data-template-id="product-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+      <h2 data-template-id="product-title" class="canva-text som-font mt-1 font-bold"></h2>
+      <form id="product-form" class="mt-6 space-y-4">
+       <div>
+        <label data-template-id="product-name-label" class="canva-text mb-1.5 block text-sm font-bold" for="product-name"></label><input id="product-name" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+       </div>
+       <div class="grid gap-3 sm:grid-cols-2">
+        <div>
+         <label data-template-id="product-warehouse-label" class="canva-text mb-1.5 block text-sm font-bold" for="product-warehouse"></label><select id="product-warehouse" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลัง</option><option>SOKO</option><option>Office</option></select>
+        </div>
+        <div>
+         <label data-template-id="product-location-label" class="canva-text mb-1.5 block text-sm font-bold" for="product-location"></label><select id="product-location" required disabled class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option value="">เลือกคลังก่อน</option></select>
+        </div>
+       </div>
+       <div class="grid gap-3 sm:grid-cols-3">
+        <div>
+         <label data-template-id="product-status-label" class="canva-text mb-1.5 block text-sm font-bold" for="product-status"></label><select id="product-status" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm"><option>พร้อมขาย</option><option>ชำรุด</option></select>
+        </div>
+        <div>
+         <label data-template-id="product-unit-label" class="canva-text mb-1.5 block text-sm font-bold" for="product-unit"></label><input id="product-unit" value="ชิ้น" required class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+        </div>
+        <div>
+         <label data-template-id="product-qty-label" class="canva-text mb-1.5 block text-sm font-bold" for="product-qty"></label><input id="product-qty" value="0" min="0" step="1" inputmode="numeric" pattern="[0-9]*" data-numeric="integer" required type="number" class="w-full rounded-xl border border-[#d5dfd5] bg-white px-3 py-3 text-sm">
+        </div>
+       </div><button data-template-id="save-product-button" id="save-product-button" type="submit" class="canva-button w-full rounded-2xl px-4 py-3.5 font-bold"></button>
+       <p id="product-message" class="hidden rounded-xl px-3 py-2 text-sm font-semibold" aria-live="polite"></p>
+      </form>
+     </section>
+     <section data-template-id="import-panel" class="canva-panel rounded-[2rem] p-6 card-shadow">
+      <p data-template-id="import-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+      <h2 data-template-id="import-title" class="canva-text som-font mt-1 font-bold"></h2>
+      <p data-template-id="import-help" class="canva-text mt-4 text-sm leading-6"></p><button data-template-id="legacy-stock-button" id="legacy-stock-button" type="button" class="canva-button mt-5 w-full rounded-2xl px-4 py-4 font-bold">นำเข้าสต็อกเก่าและยอดขาย 08/08/2026</button><label data-template-id="import-file-label" class="canva-button mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-2xl px-4 py-4 font-bold" for="import-file"><i data-lucide="upload"></i><span data-template-id="import-file-text" class="canva-text"></span></label> <input id="import-file" accept=".xlsx,.xls,.csv" type="file" class="hidden">
+      <p id="import-message" class="mt-4 hidden rounded-xl px-3 py-2 text-sm font-semibold" aria-live="polite"></p>
+      <div id="admin-product-list" class="mt-6 space-y-3"></div>
+     </section>
+    </div>
+   </section>
+   <section id="approval-view" class="view">
+    <p data-template-id="approval-intro" class="canva-text reveal mb-6 max-w-4xl leading-7"></p>
+    <section data-template-id="approval-panel" class="canva-panel rounded-[2rem] p-6 card-shadow">
+     <div class="flex items-start justify-between gap-3">
+      <div>
+       <p data-template-id="approval-kicker" class="canva-text text-xs font-bold uppercase tracking-[.16em]"></p>
+       <h2 data-template-id="approval-title" class="canva-text som-font mt-1 font-bold"></h2>
+      </div><span id="approval-count" class="rounded-xl bg-[#fff0db] px-3 py-2 text-sm font-bold text-[#a84b1d]"></span>
+     </div>
+     <div id="approval-list" class="mt-6 space-y-4"></div>
+     <p data-template-id="approval-empty" id="approval-empty" class="canva-text hidden py-10 text-center text-sm"></p>
+    </section>
+   </section>
+  </main>
+  <script src="/_sdk/d97541380e824b1a.editing_sdk.js" integrity="sha512-iBVkuiyctyjmaqUwrsoYSc/nxwymdEKZMKPeBCNj6uN/7hFPTiMVeunYJjJVnUh1GNECKEyCerl7IHtlqhzSYQ=="></script>
+  <script>
+    const $=id=>document.getElementById(id);
+    const locationsMap={SOKO:["คลัง SOKO"],Office:["ชั้น 1 ห้องแห่งความลับ","ชั้น 1 สินค้าชำรุด/บุบ/รั่วซึม","ชั้น 2"]};
+    let records=[],products=[],countRows=[],saving=false,selectedSalesDate="",sheetSyncing=false;
+
+    const blank=o=>({record_type:"",staff_name:"",category:"",location:"",sku:"",product_name:"",product_status:"",system_qty:0,actual_qty:0,difference:0,unit:"",note:"",check_date:"",check_time:"",approved:false,approved_by:"",approved_at:"",batch_id:"",sale_date:"",sale_channel:"",sale_product:"",sale_orders:0,sale_amount:0,transaction_type:"",transaction_qty:0,transaction_date:"",transaction_time:"",order_ref:"",dest_category:"",dest_location:"",requires_approval:false,...o});
+    const bangkokParts=()=>Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Bangkok",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).filter(x=>x.type!=="literal").map(x=>[x.type,x.value]));
+    const today=()=>{const p=bangkokParts();return `${p.year}-${p.month}-${p.day}`};
+    const nowTime=()=>{const p=bangkokParts();return `${p.hour}:${p.minute}`};
+    const msg=(id,text,error=false)=>{const el=$(id);el.textContent=text;el.className="mt-4 rounded-xl px-3 py-2 text-sm font-semibold "+(error?"bg-red-50 text-red-700":"bg-[#e7f2e9] text-[#26603a]")};
+    const locations=(warehouse,target)=>{const list=locationsMap[warehouse.value]||[];target.innerHTML=`<option value="">${list.length?"เลือกจุดจัดเก็บ":"เลือกคลังก่อน"}</option>`;list.forEach(x=>target.add(new Option(x,x)));target.disabled=!list.length};
+    const byId=id=>products.find(x=>x.__backendId===id);
+    const productAt=(warehouse,location,sku,status)=>products.find(p=>p.category===warehouse&&p.location===location&&p.sku===sku&&(!status||p.product_status===status));
+    const number=n=>new Intl.NumberFormat("th-TH").format(Number(n||0));
+    const money=n=>new Intl.NumberFormat("th-TH",{minimumFractionDigits:0,maximumFractionDigits:2}).format(Number(n||0));
+    const thaiDate=value=>value?new Intl.DateTimeFormat("th-TH",{day:"numeric",month:"short",year:"numeric"}).format(new Date(value+"T12:00:00")):"";
+    const monthLabel=value=>value?new Intl.DateTimeFormat("th-TH",{month:"long",year:"numeric"}).format(new Date(value+"-01T12:00:00")):"";
+
+    function bindNumericInput(input){
+      if(!input||input.dataset.numericBound)return;input.dataset.numericBound="true";
+      const decimal=input.dataset.numeric==="decimal";
+      input.addEventListener("keydown",e=>{if(["e","E","+","-"].includes(e.key)||(!decimal&&[".",","].includes(e.key)))e.preventDefault()});
+      input.addEventListener("input",()=>{let value=input.value;if(decimal){value=value.replace(/[^0-9.]/g,"");const parts=value.split(".");value=parts.shift()+(parts.length?"."+parts.join(""):"")}else value=value.replace(/\D/g,"");if(input.value!==value)input.value=value});
+    }
+    document.querySelectorAll("[data-numeric]").forEach(bindNumericInput);
+
+    const GOOGLE_SHEETS_WEB_APP_URL="";
+    const SHEET_URL_KEY="somsai-sheet-web-app-url-v1",SHEET_QUEUE_KEY="somsai-sheet-sync-queue-v1";
+    const GOOGLE_APPS_SCRIPT_CODE=`const SHEET_NAME = 'Stock Check History';
+
+function doPost(e) {
+  const payload = JSON.parse(e.postData.contents || '{}');
+  const items = Array.isArray(payload.items) ? payload.items : [];
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const file = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = file.getSheetByName(SHEET_NAME) || file.insertSheet(SHEET_NAME);
+    const headers = ['เวลาส่งข้อมูล','รหัสชุดตรวจ','วันที่ตรวจ','เวลาตรวจ','ผู้ตรวจนับ','คลัง','จุดจัดเก็บ','SKU','ชื่อสินค้า','สถานะ','ยอดในระบบ','นับจริง','ผลต่าง','หน่วย','หมายเหตุ','อนุมัติแล้ว'];
+    if (sheet.getLastRow() === 0) sheet.appendRow(headers);
+    const rows = items.map(item => [payload.sent_at || '',payload.batch_id || '',payload.check_date || '',payload.check_time || '',payload.staff_name || '',payload.category || '',payload.location || '',item.sku || '',item.product_name || '',item.product_status || '',Number(item.system_qty || 0),Number(item.actual_qty || 0),Number(item.difference || 0),item.unit || '',item.note || '',Boolean(item.approved)]);
+    if (rows.length) sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, headers.length).setValues(rows);
+    return ContentService.createTextOutput(JSON.stringify({ok:true,rows:rows.length})).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}`;
+    const storageGet=(key,fallback="")=>{try{return localStorage.getItem(key)||fallback}catch{return fallback}};
+    const storageSet=(key,value)=>{try{localStorage.setItem(key,value);return true}catch{return false}};
+    const sheetUrl=()=>storageGet(SHEET_URL_KEY,GOOGLE_SHEETS_WEB_APP_URL).trim();
+    const readSheetQueue=()=>{try{return JSON.parse(storageGet(SHEET_QUEUE_KEY,"[]"))}catch{return []}};
+    const writeSheetQueue=queue=>storageSet(SHEET_QUEUE_KEY,JSON.stringify(queue.slice(-100)));
+    const validSheetUrl=value=>/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec(?:\?.*)?$/.test(value.trim());
+    function setSheetStatus(text,state="idle"){
+      const el=$("sheet-sync-status");if(!el)return;el.textContent=text;el.className="mt-1 text-xs "+(state==="ok"?"text-[#267049]":state==="error"?"text-red-700":"text-[#718078]");
+    }
+    async function postSheetPayload(url,payload){
+      const appsScript=/^https:\/\/script\.google\.com\//.test(url);
+      const response=await fetch(url,{method:"POST",mode:appsScript?"no-cors":"cors",cache:"no-store",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify(payload),keepalive:true});
+      if(response.type!=="opaque"&&!response.ok)throw new Error("HTTP "+response.status);
+    }
+    async function flushSheetQueue(){
+      if(sheetSyncing)return false;const url=sheetUrl(),queue=readSheetQueue();
+      if(!url){setSheetStatus("ยังไม่ได้ตั้งค่า Google Sheets · ให้แอดมินกดตั้งค่า",queue.length?"error":"idle");return false}
+      if(!validSheetUrl(url)){setSheetStatus("URL Google Sheets ไม่ถูกต้อง", "error");return false}
+      if(!queue.length){setSheetStatus("เชื่อมต่อ Google Sheets แล้ว · พร้อมส่งแบบเรียลไทม์","ok");return true}
+      sheetSyncing=true;setSheetStatus(`กำลังส่งข้อมูล ${queue.length} รายการ...`);
+      try{
+        while(queue.length){const current=queue[0];await postSheetPayload(url,current.payload);queue.shift();writeSheetQueue(queue)}
+        setSheetStatus("ส่งข้อมูลไป Google Sheets ล่าสุดเรียบร้อย","ok");return true;
+      }catch(error){queue[0].attempts=Number(queue[0].attempts||0)+1;writeSheetQueue(queue);setSheetStatus(`ส่งไม่สำเร็จ · เก็บรอส่งใหม่ ${queue.length} รายการ`,"error");return false}
+      finally{sheetSyncing=false}
+    }
+    async function queueSheetPayload(payload){const item={id:payload.batch_id||"SYNC-"+Date.now(),attempts:0,payload};const queue=readSheetQueue();queue.push(item);writeSheetQueue(queue);await flushSheetQueue();return !readSheetQueue().some(x=>x.id===item.id)}
+
+    function setView(view){
+      document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id===view));
+      document.querySelectorAll(".nav-btn").forEach(x=>x.classList.toggle("active",x.dataset.view===view));
+    }
+    function setRole(){
+      const admin=$("role-select").value==="admin";
+      document.querySelectorAll(".admin-only").forEach(x=>x.classList.toggle("hidden",!admin));
+      if(!admin)$("sheet-settings").classList.add("hidden");
+      if(!admin&&["products-view","approval-view"].includes(document.querySelector(".view.active")?.id))setView("stock-view");
+    }
+    function movementProducts(){
+      const select=$("movement-product"),list=products.filter(p=>p.category===$("movement-warehouse").value&&p.location===$("movement-location").value&&p.product_status==="พร้อมขาย");
+      select.innerHTML=`<option value="">${list.length?"เลือกชื่อสินค้า":"ไม่พบสินค้าพร้อมขาย"}</option>`;
+      list.sort((a,b)=>a.product_name.localeCompare(b.product_name,"th")).forEach(p=>select.add(new Option(`${p.product_name} (${number(p.system_qty)} ${p.unit})`,p.__backendId)));
+      select.disabled=!list.length;$("movement-unit").value="";updatePreview();
+    }
+    function updatePreview(){
+      const p=byId($("movement-product").value),qty=Number($("movement-qty").value||0),type=$("movement-type").value,box=$("movement-preview");
+      const customType=type==="อื่นๆ";
+      $("custom-movement-type-fields").classList.toggle("hidden",!customType);$("custom-movement-type").required=customType;
+      $("transfer-fields").classList.toggle("hidden",type!=="ย้ายคลัง");$("dest-warehouse").required=type==="ย้ายคลัง";$("dest-location").required=type==="ย้ายคลัง";
+      if(!p||!type||!qty){box.classList.add("hidden");return}
+      let after=Number(p.system_qty);
+      if(["เบิกสินค้าราคาพนักงาน","เบิกสินค้าทีมคอนเทนต์","เบิกสินค้าชำรุด","จัดส่งสินค้า","อื่นๆ","ย้ายคลัง"].includes(type))after-=qty;else after+=qty;
+      box.textContent=`ยอดเดิม ${number(p.system_qty)} ${p.unit} · ${type} ${number(qty)} · ยอดใหม่ ${number(after)} ${p.unit}`;
+      box.classList.remove("hidden");
+    }
+    function renderStock(){
+      const warehouse=$("stock-warehouse-filter").value,location=$("stock-location-filter").value;
+      const names=[...new Set(products.map(p=>p.product_name))];
+      const filtered=products.filter(p=>(!warehouse||p.category===warehouse)&&(!location||p.location===location));
+      const body=$("stock-table-body");body.innerHTML="";
+      const sellable=filtered.filter(p=>p.product_status==="พร้อมขาย").reduce((s,p)=>s+Number(p.system_qty),0),damaged=filtered.filter(p=>p.product_status==="ชำรุด").reduce((s,p)=>s+Number(p.system_qty),0);
+      $("stock-summary").innerHTML=`<div class="rounded-2xl bg-[#f3f7f2] p-4"><span class="text-xs font-bold text-[#607067]">รายการสินค้า</span><strong class="mt-1 block text-xl text-[#20342c]">${number(names.length)}</strong></div><div class="rounded-2xl bg-[#e7f2e9] p-4"><span class="text-xs font-bold text-[#607067]">พร้อมขาย</span><strong class="mt-1 block text-xl text-[#267049]">${number(sellable)}</strong></div><div class="rounded-2xl bg-[#fff0eb] p-4"><span class="text-xs font-bold text-[#607067]">สินค้าชำรุด</span><strong class="mt-1 block text-xl text-[#b8512b]">${number(damaged)}</strong></div>`;
+      const grouped={};filtered.forEach(p=>{const k=p.product_name+"|"+p.category+"|"+p.location;grouped[k]??={...p,sellable:0,damaged:0};if(p.product_status==="ชำรุด")grouped[k].damaged+=Number(p.system_qty);else grouped[k].sellable+=Number(p.system_qty)});
+      Object.values(grouped).sort((a,b)=>a.product_name.localeCompare(b.product_name,"th")).forEach(p=>{const tr=document.createElement("tr");tr.innerHTML=`<td class="font-semibold text-[#20342c]"></td><td class="text-sm text-[#607067]"></td><td><span class="rounded-full bg-[#e7f2e9] px-2 py-1 text-xs font-bold text-[#326047]">เชื่อม SKU อัตโนมัติ</span></td><td class="font-bold text-[#267049]"></td><td class="font-bold text-[#b8512b]"></td><td class="text-sm"></td>`;const c=tr.querySelectorAll("td");c[0].textContent=p.product_name;c[1].textContent=p.category+" / "+p.location;c[3].textContent=number(p.sellable);c[4].textContent=number(p.damaged);c[5].textContent=p.unit;body.appendChild(tr)});
+      $("stock-empty").classList.toggle("hidden",filtered.length>0);
+    }
+    function renderHistory(){
+      const date=$("history-date").value,product=$("history-product").value.toLowerCase(),staff=$("history-staff").value.toLowerCase(),warehouse=$("history-warehouse").value;
+      const rows=records.filter(r=>r.record_type==="transaction"||r.record_type==="count").filter(r=>{
+        const d=r.record_type==="count"?r.check_date:r.transaction_date;
+        return(!date||d===date)&&(!product||r.product_name.toLowerCase().includes(product))&&(!staff||r.staff_name.toLowerCase().includes(staff))&&(!warehouse||r.category===warehouse);
+      }).sort((a,b)=>((b.check_date||b.transaction_date)+(b.check_time||b.transaction_time)).localeCompare((a.check_date||a.transaction_date)+(a.check_time||a.transaction_time)));
+      const list=$("history-list");list.innerHTML="";
+      rows.forEach(r=>{const count=r.record_type==="count",state=r.requires_approval&&!r.approved?"รออนุมัติ":count?"ตรวจนับแล้ว":"บันทึกแล้ว";const el=document.createElement("article");el.className="rounded-2xl border border-[#e4ebe5] bg-white p-4";el.innerHTML=`<div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between"><div><div class="flex flex-wrap gap-2"><h3 class="font-bold text-[#20342c]"></h3><span class="badge rounded-full px-2 py-1 text-xs font-bold"></span></div><p class="meta mt-2 text-sm text-[#607067]"></p><p class="note mt-1 text-xs text-[#718078]"></p></div><strong class="value text-sm text-[#365545]"></strong></div>`;el.querySelector("h3").textContent=(count?"ผลตรวจนับ":r.transaction_type)+" · "+r.product_name;const badge=el.querySelector(".badge");badge.textContent=state;badge.className+=" "+(state==="รออนุมัติ"?"bg-[#fff0db] text-[#a84b1d]":"bg-[#e7f2e9] text-[#267049]");el.querySelector(".meta").textContent=`${r.category} / ${r.location} · ${r.staff_name}`;el.querySelector(".note").textContent=`${count?r.check_date+" "+r.check_time:r.transaction_date+" "+r.transaction_time}${r.order_ref?" · เลขอ้างอิง: "+r.order_ref:""} · ${r.note||"ไม่มีหมายเหตุ"}`;el.querySelector(".value").textContent=count?`ผลต่าง ${number(r.difference)}`:`${number(r.transaction_qty)} ${r.unit}`;list.appendChild(el)});
+      $("history-empty").classList.toggle("hidden",rows.length>0);
+    }
+    function renderApprovals(){
+      const rows=records.filter(r=>r.record_type==="count"&&r.requires_approval&&!r.approved);$("approval-count").textContent=rows.length+" รออนุมัติ";const list=$("approval-list");list.innerHTML="";
+      rows.forEach(r=>{const el=document.createElement("article");el.className="rounded-2xl border border-[#f1d6bf] bg-[#fffdfb] p-5";el.innerHTML=`<div class="flex flex-col gap-4 sm:flex-row sm:justify-between"><div><h3 class="font-bold text-[#20342c]"></h3><p class="meta mt-2 text-sm text-[#607067]"></p><p class="detail mt-1 text-sm font-semibold text-[#365545]"></p><p class="note mt-1 text-xs text-[#718078]"></p></div><button class="approve rounded-xl bg-[#f36b21] px-4 py-2.5 text-sm font-bold text-white">อนุมัติยอดนับจริง</button></div>`;el.querySelector("h3").textContent="ผลตรวจนับ · "+r.product_name;el.querySelector(".meta").textContent=`${r.category} / ${r.location} · ผู้ตรวจนับ: ${r.staff_name}`;el.querySelector(".detail").textContent=`ในระบบ ${number(r.system_qty)} → นับจริง ${number(r.actual_qty)} ${r.unit} (ผลต่าง ${number(r.difference)})`;el.querySelector(".note").textContent=r.note||"ไม่มีหมายเหตุ";el.querySelector(".approve").onclick=async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="กำลังอนุมัติ";const p=products.find(x=>x.__backendId===r.batch_id);if(!p){b.textContent="ไม่พบสินค้า";return}const a=await window.dataSdk.update({...p,system_qty:Number(r.actual_qty)});const u=a.isOk&&await window.dataSdk.update({...r,approved:true,approved_by:"แอดมิน",approved_at:new Date().toISOString()});if(!u||!u.isOk){b.disabled=false;b.textContent="ลองใหม่"}};list.appendChild(el)});
+      $("approval-empty").classList.toggle("hidden",rows.length>0);
+    }
+    function renderAdminProducts(){
+      const box=$("admin-product-list");box.innerHTML="";
+      products.filter(p=>p.product_status==="พร้อมขาย").slice(0,12).forEach(p=>{const el=document.createElement("div");el.className="flex items-center justify-between rounded-2xl border border-[#e4ebe5] bg-white p-3";el.innerHTML=`<div><strong class="name text-sm text-[#20342c]"></strong><p class="meta mt-1 text-xs text-[#718078]"></p></div><button class="edit rounded-xl bg-[#eef4ef] px-3 py-2 text-xs font-bold text-[#365545]">แก้ไขยอด</button>`;el.querySelector(".name").textContent=p.product_name;el.querySelector(".meta").textContent=`${p.category} / ${p.location} · ${number(p.system_qty)} ${p.unit}`;el.querySelector(".edit").onclick=()=>{const value=window.prompt("ยอดใหม่ (กรอกตัวเลขจำนวนเต็มเท่านั้น)",p.system_qty);if(value!==null&&/^\d+$/.test(value.trim()))window.dataSdk.update({...p,system_qty:Number(value)})};box.appendChild(el)});
+    }
+
+    document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+    $("role-select").addEventListener("change",setRole);
+    $("movement-warehouse").addEventListener("change",()=>{locations($("movement-warehouse"),$("movement-location"));movementProducts()});
+    $("movement-location").addEventListener("change",movementProducts);
+    $("movement-product").addEventListener("change",()=>{$("movement-unit").value=byId($("movement-product").value)?.unit||"";updatePreview()});
+    $("movement-type").addEventListener("change",updatePreview);$("custom-movement-type").addEventListener("input",updatePreview);$("movement-qty").addEventListener("input",updatePreview);
+    $("dest-warehouse").addEventListener("change",()=>locations($("dest-warehouse"),$("dest-location")));
+    $("count-warehouse").addEventListener("change",()=>locations($("count-warehouse"),$("count-location")));
+    $("product-warehouse").addEventListener("change",()=>locations($("product-warehouse"),$("product-location")));
+    $("stock-warehouse-filter").addEventListener("change",()=>{locations($("stock-warehouse-filter"),$("stock-location-filter"));renderStock()});$("stock-location-filter").addEventListener("change",renderStock);
+    ["history-date","history-product","history-staff","history-warehouse"].forEach(id=>$(id).addEventListener("input",renderHistory));
+    $("sheet-settings-toggle").addEventListener("click",()=>$("sheet-settings").classList.toggle("hidden"));
+    $("apps-script-code").value=GOOGLE_APPS_SCRIPT_CODE;$("sheet-web-app-url").value=sheetUrl();
+    $("save-sheet-url").addEventListener("click",async()=>{const value=$("sheet-web-app-url").value.trim();if(value&&!validSheetUrl(value)){$("sheet-settings-message").textContent="URL ไม่ถูกต้อง ต้องเป็นลิงก์ที่ลงท้ายด้วย /exec";$("sheet-settings-message").className="mt-2 text-xs text-red-700";return}storageSet(SHEET_URL_KEY,value);$("sheet-settings-message").textContent=value?"บันทึก URL แล้ว ระบบจะลองส่งรายการที่รออยู่ทันที":"ล้าง URL แล้ว";$("sheet-settings-message").className="mt-2 text-xs text-[#267049]";await flushSheetQueue()});
+    $("test-sheet-url").addEventListener("click",async e=>{const button=e.currentTarget,url=$("sheet-web-app-url").value.trim();if(!validSheetUrl(url)){$("sheet-settings-message").textContent="กรุณาวาง Web App URL ที่ถูกต้องก่อนทดสอบ";$("sheet-settings-message").className="mt-2 text-xs text-red-700";return}storageSet(SHEET_URL_KEY,url);button.disabled=true;button.textContent="กำลังทดสอบ...";try{await postSheetPayload(url,{event:"connection_test",sent_at:new Date().toISOString(),batch_id:"TEST-"+Date.now(),check_date:today(),check_time:nowTime(),staff_name:"ทดสอบระบบ",category:"-",location:"-",items:[{sku:"TEST",product_name:"ทดสอบการเชื่อมต่อ",product_status:"ทดสอบ",system_qty:0,actual_qty:0,difference:0,unit:"-",note:"ลบแถวทดสอบนี้ได้",approved:true}]});$("sheet-settings-message").textContent="ส่งข้อมูลทดสอบแล้ว กรุณาเปิดชีทเพื่อตรวจสอบแถวทดสอบ";$("sheet-settings-message").className="mt-2 text-xs text-[#267049]";setSheetStatus("เชื่อมต่อ Google Sheets แล้ว · พร้อมส่งแบบเรียลไทม์","ok")}catch{$("sheet-settings-message").textContent="ทดสอบไม่สำเร็จ กรุณาตรวจ URL และสิทธิ์การ Deploy";$("sheet-settings-message").className="mt-2 text-xs text-red-700";setSheetStatus("ทดสอบการเชื่อมต่อไม่สำเร็จ","error")}finally{button.disabled=false;button.textContent="ทดสอบส่งข้อมูล"}});
+    $("copy-apps-script").addEventListener("click",async e=>{try{await navigator.clipboard.writeText(GOOGLE_APPS_SCRIPT_CODE)}catch{$("apps-script-code").select();document.execCommand("copy")}e.currentTarget.textContent="คัดลอกแล้ว";setTimeout(()=>e.currentTarget.textContent="คัดลอกโค้ด",1600)});
+    window.addEventListener("online",flushSheetQueue);
+    function renderSales(){
+      const month=$("sales-month").value||today().slice(0,7),allRows=records.filter(r=>r.record_type==="sale"&&r.sale_date);
+      const monthRows=allRows.filter(r=>r.sale_date.startsWith(month)).sort((a,b)=>(b.sale_date+(b.check_time||"")).localeCompare(a.sale_date+(a.check_time||"")));
+      const daily=new Map();
+      monthRows.forEach(row=>{if(!daily.has(row.sale_date))daily.set(row.sale_date,[]);daily.get(row.sale_date).push(row)});
+      const dates=[...daily.keys()].sort((a,b)=>b.localeCompare(a));
+      if(!selectedSalesDate||!selectedSalesDate.startsWith(month))selectedSalesDate=dates[0]||(month===today().slice(0,7)?today():month+"-01");
+      $("sales-month-summary").textContent=`${monthLabel(month)} · มีข้อมูล ${number(dates.length)} วัน · ยอดแต่ละวันแยกจากกัน`;
+      const dayList=$("sales-day-list");dayList.innerHTML="";
+      dates.forEach(date=>{
+        const dayRows=daily.get(date),dayOrders=dayRows.reduce((sum,row)=>sum+Number(row.sale_orders||0),0),dayAmount=dayRows.reduce((sum,row)=>sum+Number(row.sale_amount||0),0);
+        const button=document.createElement("button");button.type="button";button.className="sales-day-button flex w-full items-center justify-between gap-3 rounded-2xl border border-[#e4ebe5] bg-white p-4 text-left transition hover:border-[#f3b38e]";button.setAttribute("aria-current",date===selectedSalesDate?"date":"false");
+        button.innerHTML=`<span><strong class="date block text-[#20342c]"></strong><span class="orders mt-1 block text-xs text-[#718078]"></span></span><strong class="amount text-[#267049]"></strong>`;
+        button.querySelector(".date").textContent=thaiDate(date);button.querySelector(".orders").textContent=`${number(dayOrders)} ออเดอร์ · ${number(dayRows.length)} รายการ`;button.querySelector(".amount").textContent=money(dayAmount)+" บาท";
+        button.addEventListener("click",()=>{selectedSalesDate=date;renderSales()});dayList.appendChild(button);
+      });
+      if(!dates.length){const empty=document.createElement("p");empty.className="rounded-2xl border border-dashed border-[#d5dfd5] bg-white px-4 py-7 text-center text-sm text-[#718078]";empty.textContent="เดือนนี้ยังไม่มีข้อมูลยอดขาย";dayList.appendChild(empty)}
+      const rows=daily.get(selectedSalesDate)||[],totalAmount=rows.reduce((sum,row)=>sum+Number(row.sale_amount||0),0),totalOrders=rows.reduce((sum,row)=>sum+Number(row.sale_orders||0),0);
+      $("sales-selected-day-title").textContent="รายละเอียดวันที่ "+thaiDate(selectedSalesDate);$("sales-total").textContent=money(totalAmount)+" บาท · "+number(totalOrders)+" ออเดอร์";
+      const list=$("sales-list");list.innerHTML="";
+      rows.forEach(r=>{const el=document.createElement("article");el.className="rounded-2xl border border-[#e4ebe5] bg-white p-4 flex items-center justify-between gap-3";el.innerHTML=`<div><strong class="name block text-[#20342c]"></strong><span class="meta text-sm text-[#607067]"></span></div><strong class="amount text-[#267049]"></strong>`;el.querySelector(".name").textContent=(r.sale_product||"ไม่ระบุสินค้า")+" · "+(r.sale_channel||"ไม่ระบุช่องทาง");el.querySelector(".meta").textContent=number(r.sale_orders)+" ออเดอร์";el.querySelector(".amount").textContent=money(r.sale_amount)+" บาท";list.appendChild(el)});
+      if(!$("sales-empty").textContent.trim())$("sales-empty").textContent="วันที่เลือกยังไม่มีข้อมูลยอดขาย";$("sales-empty").classList.toggle("hidden",rows.length>0);
+    }
+    function shiftSalesMonth(delta){const [year,month]=($("sales-month").value||today().slice(0,7)).split("-").map(Number),date=new Date(year,month-1+delta,1);$("sales-month").value=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`;selectedSalesDate="";renderSales()}
+    $("movement-date").value=today();$("movement-time").value=nowTime();
+    $("sales-date").value=today();$("sales-month").value=today().slice(0,7);
+    $("sales-prev-month").addEventListener("click",()=>shiftSalesMonth(-1));$("sales-next-month").addEventListener("click",()=>shiftSalesMonth(1));
+    $("sales-month").addEventListener("change",()=>{selectedSalesDate="";renderSales()});
+    $("sales-date").addEventListener("change",()=>{const value=$("sales-date").value;if(!value)return;selectedSalesDate=value;$("sales-month").value=value.slice(0,7);renderSales()});
+    $("sales-form").addEventListener("submit",async e=>{
+      e.preventDefault();const form=e.currentTarget,b=form.querySelector("button[type='submit']"),saleDate=$("sales-date").value,orders=Number($("sales-orders").value),amount=Number($("sales-amount").value);
+      if(!Number.isInteger(orders)||orders<0||!Number.isFinite(amount)||amount<0){msg("sales-message","กรุณากรอกจำนวนออเดอร์และยอดขายเป็นตัวเลขที่ถูกต้อง",true);return}
+      b.disabled=true;selectedSalesDate=saleDate;$("sales-month").value=saleDate.slice(0,7);
+      const result=await window.dataSdk.create(blank({record_type:"sale",sale_date:saleDate,sale_channel:$("sales-channel").value,sale_product:$("sales-product").value.trim(),sale_orders:orders,sale_amount:amount,check_time:nowTime()}));
+      b.disabled=false;if(result.isOk){form.reset();$("sales-date").value=saleDate;msg("sales-message","บันทึกยอดขายของวันที่ "+thaiDate(saleDate)+" แล้ว")}else msg("sales-message","บันทึกยอดขายไม่สำเร็จ กรุณาลองใหม่",true)
+    });
+
+    $("movement-form").addEventListener("submit",async e=>{
+      e.preventDefault();if(saving)return;const p=byId($("movement-product").value),type=$("movement-type").value,qty=Number($("movement-qty").value);
+      if(!p||!Number.isInteger(qty)||qty<=0){msg("movement-message","กรุณาเลือกสินค้าและกรอกจำนวนเป็นตัวเลขจำนวนเต็ม",true);return}
+      if(["เบิกสินค้าราคาพนักงาน","เบิกสินค้าทีมคอนเทนต์","เบิกสินค้าชำรุด","จัดส่งสินค้า","อื่นๆ","ย้ายคลัง"].includes(type)&&Number(p.system_qty)<qty){msg("movement-message","ยอดพร้อมขายไม่เพียงพอ",true);return}
+      if(type==="ย้ายคลัง"&&(!$("dest-warehouse").value||!$("dest-location").value)){msg("movement-message","กรุณาเลือกจุดจัดเก็บปลายทาง",true);return}
+      saving=true;const b=$("save-movement-button");b.disabled=true;
+      const add=["รับสินค้าเข้า","รับคืน"].includes(type),next=Number(p.system_qty)+(add?qty:-qty);
+      const transactionType=type==="อื่นๆ"?$("custom-movement-type").value.trim():type;
+      if(!transactionType){msg("movement-message","กรุณาพิมพ์ประเภทรายการ",true);saving=false;b.disabled=false;return}
+      let ok=(await window.dataSdk.create(blank({record_type:"transaction",staff_name:$("movement-staff").value,category:p.category,location:p.location,sku:p.sku,product_name:p.product_name,product_status:p.product_status,unit:p.unit,note:$("movement-note").value.trim(),transaction_type:transactionType,transaction_qty:qty,transaction_date:$("movement-date").value,transaction_time:$("movement-time").value,order_ref:$("movement-order-ref").value.trim(),dest_category:$("dest-warehouse").value,dest_location:$("dest-location").value,approved:true,approved_by:"ระบบ",approved_at:new Date().toISOString()}))).isOk;
+      if(ok)ok=(await window.dataSdk.update({...p,system_qty:next})).isOk;
+      if(ok&&type==="เบิกสินค้าชำรุด"){let damaged=productAt(p.category,p.location,p.sku,"ชำรุด");if(damaged)ok=(await window.dataSdk.update({...damaged,system_qty:Number(damaged.system_qty)+qty})).isOk;else ok=(await window.dataSdk.create(blank({record_type:"product",category:p.category,location:p.location,sku:p.sku,product_name:p.product_name,product_status:"ชำรุด",system_qty:qty,unit:p.unit}))).isOk}
+      if(ok&&type==="ย้ายคลัง"){let dest=productAt($("dest-warehouse").value,$("dest-location").value,p.sku,"พร้อมขาย");if(dest)ok=(await window.dataSdk.update({...dest,system_qty:Number(dest.system_qty)+qty})).isOk;else ok=(await window.dataSdk.create(blank({record_type:"product",category:$("dest-warehouse").value,location:$("dest-location").value,sku:p.sku,product_name:p.product_name,product_status:"พร้อมขาย",system_qty:qty,unit:p.unit}))).isOk}
+      saving=false;b.disabled=false;if(ok){$("movement-form").reset();$("movement-date").value=today();$("movement-time").value=nowTime();$("movement-unit").value="";updatePreview();msg("movement-message","บันทึกรายการและอัปเดตสต็อกแล้ว")}else msg("movement-message","บันทึกรายการไม่สำเร็จ กรุณาลองใหม่",true);
+    });
+
+    $("count-selector-form").addEventListener("submit",e=>{
+      e.preventDefault();const w=$("count-warehouse").value,l=$("count-location").value;
+      if(!$("count-staff").value||!w||!l){msg("count-selector-message","กรุณาเลือกผู้ตรวจนับ คลัง และจุดจัดเก็บให้ครบ",true);return}
+      countRows=products.filter(p=>p.category===w&&p.location===l&&p.product_status==="พร้อมขาย");$("count-table-section").classList.remove("hidden");$("count-area").textContent=`ผู้ตรวจนับ: ${$("count-staff").value} · ${w} / ${l}`;$("count-summary").textContent=countRows.length+" รายการ";
+      const body=$("count-table-body");body.innerHTML="";
+      countRows.forEach(p=>{const tr=document.createElement("tr");tr.innerHTML=`<td class="font-semibold text-[#20342c]"></td><td><span class="rounded-full bg-[#e7f2e9] px-2 py-1 text-xs font-bold text-[#326047]">พร้อมขาย</span></td><td class="font-bold"></td><td><input class="actual w-24 rounded-lg border border-[#d5dfd5] px-2 py-2 text-sm" min="0" step="1" inputmode="numeric" pattern="[0-9]*" data-numeric="integer" type="number"></td><td class="text-sm"></td><td><strong class="diff inline-block rounded-lg bg-[#edf2ee] px-2.5 py-1.5 text-sm">—</strong></td><td><input class="note w-44 rounded-lg border border-[#d5dfd5] px-2 py-2 text-sm"></td>`;const c=tr.querySelectorAll("td");c[0].textContent=p.product_name;c[2].textContent=number(p.system_qty);c[4].textContent=p.unit;const actualInput=tr.querySelector(".actual");bindNumericInput(actualInput);actualInput.addEventListener("input",ev=>{const v=ev.target.value,d=tr.querySelector(".diff");if(v===""){d.textContent="—";return}const diff=Number(v)-Number(p.system_qty);d.textContent=diff>0?"+"+diff:diff;d.className="diff inline-block rounded-lg px-2.5 py-1.5 text-sm "+(diff===0?"bg-[#e7f2e9] text-[#267049]":"bg-[#fff0eb] text-[#b8512b]")});body.appendChild(tr)});
+    });
+    $("count-form").addEventListener("submit",async e=>{
+      e.preventDefault();const rows=[...$("count-table-body").querySelectorAll("tr")];if(!rows.length)return;
+      if(rows.some(r=>r.querySelector(".actual").value==="")){msg("count-message","กรุณากรอกจำนวนที่นับจริงให้ครบทุกสินค้า",true);return}
+      if(rows.some(r=>!Number.isInteger(Number(r.querySelector(".actual").value))||Number(r.querySelector(".actual").value)<0)){msg("count-message","จำนวนที่นับจริงต้องเป็นเลขจำนวนเต็มตั้งแต่ 0 ขึ้นไป",true);return}
+      const b=$("save-count-button"),checkDate=today(),checkTime=nowTime(),batchId="COUNT-"+Date.now()+"-"+Math.random().toString(36).slice(2,7).toUpperCase(),sheetItems=[];b.disabled=true;let ok=true;
+      for(let i=0;i<countRows.length;i++){
+        const p=countRows[i],r=rows[i],actual=Number(r.querySelector(".actual").value),diff=actual-Number(p.system_qty),same=diff===0,note=r.querySelector(".note").value.trim();
+        const result=await window.dataSdk.create(blank({record_type:"count",staff_name:$("count-staff").value,category:p.category,location:p.location,sku:p.sku,product_name:p.product_name,product_status:p.product_status,system_qty:Number(p.system_qty),actual_qty:actual,difference:diff,unit:p.unit,note,check_date:checkDate,check_time:checkTime,approved:same,approved_by:same?"ระบบ":"",approved_at:same?new Date().toISOString():"",batch_id:p.__backendId,requires_approval:!same}));
+        if(!result.isOk){ok=false;break}
+        sheetItems.push({sku:p.sku,product_name:p.product_name,product_status:p.product_status,system_qty:Number(p.system_qty),actual_qty:actual,difference:diff,unit:p.unit,note,approved:same});
+        if(same){const up=await window.dataSdk.update({...p,system_qty:actual});if(!up.isOk){ok=false;break}}
+      }
+      let sheetSent=false;if(sheetItems.length)sheetSent=await queueSheetPayload({event:"stock_check",sent_at:new Date().toISOString(),batch_id:batchId,check_date:checkDate,check_time:checkTime,staff_name:$("count-staff").value,category:$("count-warehouse").value,location:$("count-location").value,items:sheetItems});
+      b.disabled=false;
+      if(ok){const suffix=sheetUrl()?(sheetSent?" และส่งสำเนาไป Google Sheets แล้ว":" · สำเนารอส่งไป Google Sheets อัตโนมัติ"):" · ตั้งค่า Google Sheets เพื่อเปิดใช้สำเนาเรียลไทม์";msg("count-message","บันทึกผลตรวจนับแล้ว รายการยอดต่างส่งให้แอดมินอนุมัติ"+suffix)}else msg("count-message","บันทึกบางรายการไม่สำเร็จ กรุณาลองใหม่",true)
+    });
+    $("product-form").addEventListener("submit",async e=>{e.preventDefault();const qty=Number($("product-qty").value);if(!Number.isInteger(qty)||qty<0){msg("product-message","ยอดตั้งต้นต้องเป็นเลขจำนวนเต็มตั้งแต่ 0 ขึ้นไป",true);return}const b=$("save-product-button");b.disabled=true;const name=$("product-name").value.trim(),sku="SMS-"+Date.now().toString().slice(-7);const result=await window.dataSdk.create(blank({record_type:"product",category:$("product-warehouse").value,location:$("product-location").value,sku,product_name:name,product_status:$("product-status").value,system_qty:qty,unit:$("product-unit").value.trim()}));b.disabled=false;if(result.isOk){$("product-form").reset();$("product-unit").value="ชิ้น";$("product-qty").value="0";msg("product-message","เพิ่มสินค้าแล้ว ระบบสร้างรหัสเชื่อมข้อมูลให้เรียบร้อย")}else msg("product-message","เพิ่มสินค้าไม่สำเร็จ",true)});
+    $("import-file").addEventListener("change",async e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=async ev=>{try{const wb=XLSX.read(ev.target.result,{type:"array"}),sheet=wb.Sheets[wb.SheetNames[0]],rows=XLSX.utils.sheet_to_json(sheet,{defval:""});let added=0;for(const row of rows.slice(0,50)){const name=String(row["ชื่อสินค้า"]||row.product_name||"").trim(),warehouse=String(row["คลัง"]||row.category||"").trim(),location=String(row["จุดจัดเก็บ"]||row.location||"").trim();if(!name||!warehouse||!location)continue;const res=await window.dataSdk.create(blank({record_type:"product",category:warehouse,location,sku:"SMS-"+Date.now().toString().slice(-7)+"-"+added,product_name:name,product_status:String(row["สถานะ"]||row.product_status||"พร้อมขาย"),system_qty:Number(row["ยอดตั้งต้น"]||row.system_qty||0),unit:String(row["หน่วย"]||row.unit||"ชิ้น")}));if(res.isOk)added++}msg("import-message",`นำเข้าสินค้า ${added} รายการแล้ว`)}catch{msg("import-message","อ่านไฟล์ไม่สำเร็จ กรุณาตรวจรูปแบบคอลัมน์",true)}};reader.readAsArrayBuffer(file)});
+
+    const legacyStock=[
+      ["SOMSAI สบู่ส้มใส ถุงเติม 250 ml.",6021,"ชิ้น"],["SOMSAI สบู่ส้มใส ขวดใหญ่ 300 ml.",3319,"ขวด"],["SOMSAI เอสเซ้นส์ส้มใส 150 ml.",1766,"ชิ้น"],["ของสมนาคุณ ถุงผ้าส้มใสเอนกประสงค์",1878,"ใบ"],["ของสมนาคุณ แก้วน้ำเก็บความเย็น",4,"ใบ"],["SOMSAI สบู่ส้มใส ขวดพกพา 60 ml.",5175,"ขวด"],["ของสมนาคุณ ผ้าขนหนู",199,"ผืน"],["SOMSAI กันแดดส้มใส 5 g. (Tester)",456,"ชิ้น"],["SOMSAI 4Step UV Protection SPF50+ PA++++ 30g.",2064,"ชิ้น"],["ของสมนาคุณ ร่มส้มใส",167,"คัน"],["ของสมนาคุณ กระเป๋าผ้าพรีเมี่ยมส้มใส",39,"ใบ"],["SOMSAI เอสเซ้นส์ส้มใส 30 ml.",1010,"ชิ้น"],["ของสมนาคุณ Lesasha ไดร์เป่าผม รุ่น LS0834",0,"เครื่อง"],["ของสมนาคุณ ถุงบิ๊กแบ็คส้มใส",47,"ใบ"],["ของสมนาคุณ กระเป๋าลิตเติ้ลบักเกต",38,"ใบ"],["SOMSAI ทริปเปิล-ล็อก มอยส์เจอร์ ครีม 20g.",341,"ชิ้น"],["SOMSAI ทริปเปิล-ล็อก มอยส์เจอร์ ครีม 5g.",1076,"ชิ้น"],["ของสมนาคุณ จัมโบ้ แฮร์ สบู่ คลิป",131,"ชิ้น"],["ของสมนาคุณ จัมโบ้ แฮร์ น้ำตบ คลิป",4,"ชิ้น"],["ของสมนาคุณ จัมโบ้ แฮร์ กันแดด คลิป",8,"ชิ้น"],["ของสมนาคุณ จัมโบ้ แฮร์ ส้มใส คลิป",43,"ชิ้น"],["SOMSAI เจลลี่ พีเฮช บลัช เบอร์01 มาเจนต้า",387,"ชิ้น"],["SOMSAI เจลลี่ พีเฮช บลัช เบอร์02 ซีเครท ออเรนจ์",74,"ชิ้น"],["น้องส้มหล่อ (ชุดอาบน้ำ)",27,"ชุด"],["น้องส้มสวย (ชุดอาบน้ำ)",19,"ชุด"],["น้องส้มสวย (ชุดไทย)",0,"ชุด"],["ของสมนาคุณ เสื้อส้มใส 17ปี M",19,"ตัว"],["ของสมนาคุณ เสื้อส้มใส 17ปี L",35,"ตัว"],["ของสมนาคุณ เสื้อส้มใส 17ปี XL",40,"ตัว"],["ของสมนาคุณ เสื้อส้มใส 17ปี XXL",1,"ตัว"]
+    ];
+    const legacyOffice=[["กระเป๋าฟัฟฟี่",77,"ใบ","ชั้น 1 ห้องแห่งความลับ"],["ถุงผ้าส้มใสสปันบอน",76,"ใบ","ชั้น 1 ห้องแห่งความลับ"],["ลิตเติ้ลบัคเกต",25,"ใบ","ชั้น 1 ห้องแห่งความลับ"],["กระเป๋า Anello",55,"ใบ","ชั้น 1 ห้องแห่งความลับ"],["ร่มส้มใส",5,"คัน","ชั้น 1 ห้องแห่งความลับ"],["ขวดใหญ่",22,"ขวด","ชั้น 1 สินค้าชำรุด/บุบ/รั่วซึม"],["น้ำตบเล็ก",2,"ขวด","ชั้น 1"],["น้ำตบใหญ่",7,"ชิ้น","ชั้น 1"],["มอยส์หน้าเด็กใหญ่",17,"ชิ้น","ชั้น 1"],["เทสมอยส์",22,"ชิ้น","ชั้น 1"],["เทสกันแดด",5,"ชิ้น","ชั้น 1"],["กันแดดใหญ่",4,"ชิ้น","ชั้น 1"],["ตุ๊กตาส้มส้มชาย",790,"ตัว","ชั้น 2"],["ตุ๊กตาส้มส้มหญิง",789,"ตัว","ชั้น 2"],["Herba Milk Cleanser 15 g.",1630,"ชิ้น","ชั้น 2"],["คลีนซิ่งส้มใส 85 g.",352,"ชิ้น","ชั้น 2"],["กระจกส้มใส",243,"ชิ้น","ชั้น 2"],["แก้วเก็บความเย็นส้มใส",13,"ใบ","ชั้น 2"],["ออมสินหมู",20,"ชิ้น","ชั้น 2"],["เซตแก้วน้ำ+ถุงผ้าส้มใส",17,"กล่อง","ชั้น 2"],["เทปส้มใส",918,"ม้วน","ชั้น 2"],["บับเบิ้ล",30,"ม้วน","ชั้น 2"],["ใบปะหน้า",12,"ม้วน","ชั้น 2"],["ถุงผ้าสปันบอน",26,"ชิ้น","ชั้น 2"],["พัดส้มใส",30,"ชิ้น","ชั้น 2"],["พัดลม",1,"ชิ้น","ชั้น 2"],["แก้วใส",1,"ชิ้น","ชั้น 2"],["หมอนขาวส้มใส",1,"ชิ้น","ชั้น 2"],["ร่มส้มใส",2,"คัน","ชั้น 2"],["หมวกบักเกต",2,"ใบ","ชั้น 2"],["กระเป๋าเครื่องสำอางใส",2,"ใบ","ชั้น 2"],["เสื้อยืดส้ม XL",1,"ตัว","ชั้น 2"]];
+    $("legacy-stock-button").addEventListener("click",async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="กำลังนำเข้าข้อมูล...";let ok=true;for(const [name,qty,unit] of legacyStock)if(!(await window.dataSdk.create(blank({record_type:"product",category:"SOKO",location:"คลัง SOKO",sku:"LEGACY-"+Date.now()+Math.random().toString(36).slice(2,6),product_name:name,product_status:"พร้อมขาย",system_qty:qty,unit}))).isOk)ok=false;for(const [name,qty,unit,location] of legacyOffice)if(!(await window.dataSdk.create(blank({record_type:"product",category:"Office",location,sku:"LEGACY-"+Date.now()+Math.random().toString(36).slice(2,6),product_name:name,product_status:"ชำรุด",system_qty:qty,unit}))).isOk)ok=false;const channels=[["Dropship",8,6357],["Line",27,15164],["Facebook",4,2105]];for(const [channel,orders,amount] of channels)await window.dataSdk.create(blank({record_type:"sale",sale_date:"2026-08-08",sale_channel:channel,sale_orders:orders,sale_amount:amount,check_time:"00:00"}));b.disabled=false;b.textContent="นำเข้าสต็อกเก่าและยอดขาย 08/08/2026";msg("import-message",ok?"นำเข้าสต็อกเก่าและยอดขายวันที่ 08/08/2026 แล้ว":"นำเข้าบางรายการไม่สำเร็จ",!ok)});
+    const handler={onDataChanged(data){records=data;products=data.filter(r=>r.record_type==="product");renderStock();renderHistory();renderSales();renderApprovals();renderAdminProducts();movementProducts()}};
+    setRole();flushSheetQueue();
+    (async()=>{const result=await window.dataSdk.init(handler);if(!result.isOk)msg("movement-message","เชื่อมต่อข้อมูลไม่สำเร็จ กรุณารีเฟรชหน้าอีกครั้ง",true)})();
+    lucide.createIcons();
+  </script>
+ </body>
+</html>
